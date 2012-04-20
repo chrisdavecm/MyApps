@@ -4,19 +4,15 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
-import java.net.URLEncoder;
 import java.text.ParseException;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
 import java.util.regex.Pattern;
 
 import org.htmlcleaner.CleanerProperties;
 import org.htmlcleaner.HtmlCleaner;
 import org.htmlcleaner.TagNode;
 import org.htmlcleaner.XPatherException;
-
 import android.util.Log;
 
 import com.davidsonecm.metcheck.Weather;
@@ -40,7 +36,10 @@ public class GetWeather {
 		props.setOmitComments(true);
 		 
 		try {
-			URL url = new URL("http://www.metcheck.com/V40/UK/FREE/14days.asp?zipcode="+URLEncoder.encode(location));
+			//this is the today URL
+			URL url = new URL("http://www.metcheck.com/V40/UK/FREE/today.asp?zipcode=da7+5dx");
+			//this is the 14 days url
+			//URL url = new URL("http://www.metcheck.com/V40/UK/FREE/14days.asp?zipcode="+URLEncoder.encode(location));
 		     URLConnection conn = url.openConnection();
 		     TagNode node = pageParser.clean(new InputStreamReader(conn.getInputStream()));
 		     
@@ -94,7 +93,8 @@ public class GetWeather {
 //		InputStream in;
 //
 //		try {
-//			URL url = new URL("http://www.metcheck.com/V40/UK/FREE/14days.asp?zipcode="+URLEncoder.encode(location));
+//			URL url = new URL("http://www.metcheck.com/V40/UK/FREE/today.asp?zipcode=da7+5dx");
+//			//URL url = new URL("http://www.metcheck.com/V40/UK/FREE/14days.asp?zipcode="+URLEncoder.encode(location));
 //			urlConnection = (HttpURLConnection) url.openConnection();
 //			in = new BufferedInputStream(urlConnection.getInputStream());
 //			readStream(in);
@@ -120,7 +120,7 @@ public class GetWeather {
 //       System.out.print(sb.toString());
 //
 //	}
-
+//
 	protected boolean foundTime(String s) {
 		if(s == null){
 			return false;
