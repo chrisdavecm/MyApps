@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+    <TextView
+        android:id="@+id/startTime"
+        android:layout_width="wrap_content"
+        android:layout_height="20dip"
+        android:text="TextView" />
+
+    <TextView
+        android:id="@+id/endTime"
+        android:layout_width="wrap_content"
+        android:layout_height="20dip"
+        android:layout_below="@id/startTime"
+        android:text="TextView" />
+
+    <ImageView
+        android:id="@+id/weatherImageView"
+        android:layout_width="125dip"
+        android:layout_height="50dip"
+        android:layout_toRightOf="@id/startTime"
+        android:src="@drawable/fair" />
+
+</merge>

@@ -1,11 +1,15 @@
 package com.davidsonecm.metcheck.rest;
 
+import java.io.IOException;
 import java.text.ParseException;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import junit.framework.TestCase;
 
 import com.davidsonecm.metcheck.Weather;
+import com.davidsonecm.metcheck.WeatherType;
 
 public class getWeatherTest extends TestCase {
 	
@@ -20,8 +24,21 @@ public class getWeatherTest extends TestCase {
 		array[6] = "84 %";
 		array[7] = "<img>";
 		array[8] = "13 mph";
-		array[9] = "<img>";
-		Weather weather = new Weather(array);
+		array[9] = "<img src=/IMAGES/GENERIC/ICONS/ANIMATED/SH.gif title=\"Showers\" border=0>";
+		
+		Map<String,String> map = new HashMap<String, String>();
+		map.put("From", array[0]);
+		map.put("Until", array[1]);
+		map.put("Temp", array[2]);
+		map.put("Feels", array[3]);
+		map.put("Pressure", array[4]);
+		map.put("Rain", array[5]);
+		map.put("Cloud", array[6]);
+		map.put("", array[7]);
+		map.put("Speed", array[8]);
+		map.put("Weather", array[9]);
+		
+		Weather weather = new Weather(map);
 		
 		Date startDate = weather.getStartTime();
 		assertNotNull(startDate);
@@ -52,9 +69,12 @@ public class getWeatherTest extends TestCase {
 		
 		int wind = weather.getSpeed();
 		assertTrue(wind>0);
+		
+		WeatherType w = weather.getWeatherType();
+		assertTrue(WeatherType.SHOWERS == w);
 	}
 	
-	public void testRestCall() throws ParseException{
+	public void testRestCall() throws ParseException, IOException{
 		GetWeather getWeather = new GetWeather();
 		Weather weather = getWeather.getWeatherNow("DA7 5DX");
 		assertNotNull(weather);
@@ -86,20 +106,7 @@ public class getWeatherTest extends TestCase {
 		
 	}
 	
-	public void testFindTime(){
-		GetWeather getWeather = new GetWeather();
-		assertTrue(getWeather.foundTime("12:00"));
-		assertTrue(getWeather.foundTime("1:00"));
-		assertTrue(getWeather.foundTime("12:59"));
-		assertTrue(getWeather.foundTime("23:34"));
-		assertFalse(getWeather.foundTime("12.00"));
-		assertFalse(getWeather.foundTime("12:0"));
-		assertFalse(getWeather.foundTime(""));
-		assertFalse(getWeather.foundTime(null));
-		//TODO these should fail really
-		assertTrue(getWeather.foundTime("12:62"));
-		assertTrue(getWeather.foundTime("52:62"));
-	}
+	
 
 	protected void setUp() throws Exception {
 		super.setUp();

@@ -16,4 +16,11 @@ public class WeatherTest extends TestCase {
 		assertEquals(12, c.get(Calendar.HOUR_OF_DAY));
 		assertEquals(0, c.get(Calendar.MINUTE));
 	}
+	public void testGetImage(){
+		Weather weather = new Weather();
+		String s = weather.getImage("<img src=\"/IMAGES/GENERIC/ICONS/ANIMATED/NSU.gif\" title=\"Clear\" border=\"0\" />");
+		assertEquals("NSU", s);
+		s = weather.getImage("<img src=\"/IMAGES/GENERIC/ICONS/ANIMATED/SU.gif\" title=\"Clear\" border=\"0\" />");
+		assertEquals("SU", s);
+	}
 }
