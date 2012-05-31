@@ -7,6 +7,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.text.ParseException;
+import java.util.Iterator;
+import java.util.List;
 
 import junit.framework.TestCase;
 
@@ -25,6 +27,23 @@ public class HTMLToWeatherConverterTest extends TestCase {
 		
 		Weather weather = HTMLToWeatherConverter.extractFirstRow(html);
 		assertTrue(weather!=null);
+	}
+	public void testResultHtmlList() throws FileNotFoundException, IOException, ParseException{
+		String location = "src/com/davidsonecm/metcheck/rest/todayResult.html";
+		
+		File file = new File(location);
+		
+		assertTrue(file.exists());
+		
+		String html = readToString(location);
+		
+		List<Weather> weathers = HTMLToWeatherConverter.extractDay(html);
+		assertEquals(8, weathers.size());
+		for (Iterator iterator = weathers.iterator(); iterator.hasNext();) {
+			Weather weather = (Weather) iterator.next();
+			assertTrue(weather!=null);
+		}
+		
 	}
 	
 	private String readToString(String location) {

@@ -19,25 +19,20 @@ import com.davidsonecm.metcheck.Weather;
 
 public class HTMLToWeatherConverter {
 
-	/**
-	 * Takes a string of html to parse
-	 * @param html
-	 * @return
-	 * @throws ParseException
-	 * @throws IOException
-	 */
-	public static Weather extractFirstRow(String html)
-			throws ParseException, IOException {
-		
+
+
+	public static List<Weather> extractDay(String html) throws ParseException {
 		Document doc = Jsoup.parse(html);
 
 		List<String> headers = getHeaders(doc);
-		String[] weatherList = new String[headers.size()];
+		String[] weatherHeaders = new String[headers.size()];
 
 		Elements dataRows = doc.select("td.dataTableDataRow");
 
+		List<Weather> weatherList = new ArrayList<Weather>();
+		
 		for (int i = 0; i < dataRows.size(); i++) {
-			System.out.println("dataRows.get(i).toString()"
+			System.out.println(i+" dataRows.get(i).toString()"
 					+ dataRows.get(i).ownText());
 			if (dataRows.get(i).hasText()) {
 				// own text is the string for this level only
@@ -54,26 +49,49 @@ public class HTMLToWeatherConverter {
 
 					for (; i < end; i++) {
 						String s = null;
+						System.out.println(i+" dataRows.get(i).toString()"
+								+ dataRows.get(i).ownText());
+
 						if(headers.get(count).equals("Weather")){
 							s = dataRows.get(i).child(0).toString();
 						}else{
 							s = dataRows.get(i).ownText();
 						}
 						System.out.println(s);
-						weatherList[count++] = s;
+						weatherHeaders[count++] = s;
 					}
+					i--;
 					Map<String,String> map = new HashMap<String, String>();
-					for (int j = 0; j < weatherList.length; j++) {
-						map.put(headers.get(j), weatherList[j]);
+					for (int j = 0; j < weatherHeaders.length; j++) {
+						map.put(headers.get(j), weatherHeaders[j]);
 					}
-					return new Weather(map);
+					weatherList.add(new Weather(map));
+					if(weatherList.size() == 8){
+						return weatherList;
+					}
 				}
 			}
 
 		}
 
 		
-		return null;
+		return weatherList;
+	}
+	/**
+	 * Takes a string of html to parse
+	 * @param html
+	 * @return
+	 * @throws ParseException
+	 * @throws IOException
+	 */
+	public static Weather extractFirstRow(String html)
+			throws ParseException, IOException {
+		List<Weather> list = extractDay(html);
+		if(list!=null && list.size()>0){
+			return list.get(0);
+		}else{
+			return null;
+		}
 	}
 
 	private static String HEADER_START = "From", HEADER_END = "Weather";
@@ -111,4 +129,6 @@ public class HTMLToWeatherConverter {
 		}
 		return Pattern.matches("\\d{1,2}:\\d{2}", s);
 	}
+
+	
 }
