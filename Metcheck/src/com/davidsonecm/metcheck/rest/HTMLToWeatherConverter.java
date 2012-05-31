@@ -19,6 +19,13 @@ import com.davidsonecm.metcheck.Weather;
 
 public class HTMLToWeatherConverter {
 
+	/**
+	 * Takes a string of html to parse
+	 * @param html
+	 * @return
+	 * @throws ParseException
+	 * @throws IOException
+	 */
 	public static Weather extractFirstRow(String html)
 			throws ParseException, IOException {
 		

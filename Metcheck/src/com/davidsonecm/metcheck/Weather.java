@@ -71,11 +71,11 @@ public class Weather {
 	protected String getImage(String string) {
 		//TODO this is a huge assumption about the final / always being there
 		int start = string.lastIndexOf("/",string.lastIndexOf("/")-1)+1;
-		int end = string.indexOf(".gif")	;	
-		System.out.println("start"+start);
-		System.out.println("string"+string.charAt(75));
-		System.out.println("end"+end);
+		int end = string.indexOf(".gif")	;
 		System.out.println("string"+string);
+		System.out.println("start"+start);
+		System.out.println("end"+end);
+		
 		String image = string.substring(start, end);
 		System.out.println("image"+image);
 		return image;
