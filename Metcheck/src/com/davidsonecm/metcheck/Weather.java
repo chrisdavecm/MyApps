@@ -65,6 +65,8 @@ public class Weather {
 			weatherType = WeatherType.NIGHT_PARTLY_CLOUDY;
 		}else if(image.equals("NCL")){
 			weatherType = WeatherType.NIGHT_CLOUDY;
+		}else if(image.equals("CL")){
+			weatherType = WeatherType.CLOUDY;
 		}
 	}
 	
