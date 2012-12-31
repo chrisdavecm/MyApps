@@ -23,9 +23,12 @@ public class RestGetDocLib extends RestAbstract{
 	}
 
 	public List<Folder> getFolders() throws IOException, JSONException {
+		return getFolders("");
+	}
+	public List<Folder> getFolders(String path) throws IOException, JSONException  {
 		List<Folder> folders = new ArrayList<Folder>();
 		
-		String response = getResponse("/alfresco/service/slingshot/doclib/treenode/site/swsdp/documentLibrary?");
+		String response = getResponse("/alfresco/service/slingshot/doclib/treenode/site/swsdp/documentLibrary/"+path+"?");
 		
 		System.out.println(response);
 		
