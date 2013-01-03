@@ -2,16 +2,28 @@ package com.davidsonecm.alfrescoimageuploader.domain;
 
 public class Server {
 	String name, address, port;
-	
+	long id;
 	
 
 	
+
+	public long getId() {
+		return id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
 
 	public Server(String name, String address, String port) {
 		super();
 		this.name = name;
 		this.address = address;
 		this.port = port;
+	}
+
+	public Server() {
+		// TODO Auto-generated constructor stub
 	}
 
 	public String getName() {
@@ -74,4 +86,6 @@ public class Server {
 			return false;
 		return true;
 	}
+
+	
 }
