@@ -1,10 +1,9 @@
 package com.davidsonecm.alfrescoimageuploader;
 
-import com.davidsonecm.alfrescoimageuploader.db.ServersDataSource;
-import com.davidsonecm.alfrescoimageuploader.domain.Server;
-
 import android.test.AndroidTestCase;
 import android.test.RenamingDelegatingContext;
+
+import com.davidsonecm.alfrescoimageuploader.domain.Server;
 
 public class AIUProcessorDBTest extends AndroidTestCase {
 	private static final String TEST_FILE_PREFIX = "test_";
@@ -40,5 +39,8 @@ public class AIUProcessorDBTest extends AndroidTestCase {
 		RenamingDelegatingContext context 
         	= new RenamingDelegatingContext(getContext(), TEST_FILE_PREFIX);
 		aiup = new AIUProcessorDB(context);
+	}
+	protected void tearDown(){
+		aiup.closeResources();
 	}
 }

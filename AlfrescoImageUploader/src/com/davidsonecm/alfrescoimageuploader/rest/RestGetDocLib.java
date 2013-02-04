@@ -9,7 +9,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import com.davidsonecm.alfrescoimageuploader.domain.Folder;
-import com.davidsonecm.alfrescoimageuploader.domain.Site;
 
 public class RestGetDocLib extends RestAbstract{
 	public RestGetDocLib(String server, String port) {

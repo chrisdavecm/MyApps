@@ -17,4 +17,6 @@ public interface AIUProcessor {
 	
 	Server getServer(long id);
 
+	void closeResources();
+
 }
